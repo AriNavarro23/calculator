@@ -1,16 +1,18 @@
-import React from "react";
+import React from 'react';
 
-function Button (props) {
+function Button(props) {
 
-    const esOperador = valor =>{
+    const esOperador = valor => {
         return isNaN(valor) && (valor !== '.') && (valor !== '=');
     };
 
-    return(
-        <div className={`container-button ${esOperador(props.children) ? 'operador' : ' '}`.trimEnd()}>
-            {props.children}
-        </div>
+    return (
+        <button
+        className={`container-button ${esOperador(props.children) ? 'operador' : ''}`.trimEnd()}
+        onClick={() => props.handleClic(props.children)}>
+        {props.children}
+        </button>
     );
 }
 
-export default Button
+export default Button;

@@ -1,43 +1,61 @@
 import './App.css';
-import '../src/css/Input.css';
-import '../src/css/Button.css';
-import '../src/css/ButtonClear.css';
-import Input from './components/Input';
 import Button from './components/Button';
-import ButtonClear from './components/ButtonClear'; 
-
+import Input from './components/Input';
+import ButtonClear from './components/ButtonClear';
+import { useState } from 'react';
+import './css/Button.css';
+import './css/ButtonClear.css';
+import './css/Input.css'; 
+import { evaluate } from 'mathjs';  
 
 function App() {
+
+  const [input, setInput] = useState('');
+
+  const agregarInput = val => {
+    setInput(input + val);
+  };
+
+  const calculateResult = () => {
+    if (input) {
+      setInput(evaluate(input));
+    } else {
+      alert("Por favor ingrese valores para realizar los cálculos.");
+    }
+  };
+
   return (
-    <div className="App">
+    <div className='App'>
       <div className='calculator-container'>
-        <Input />
-        <div className='fila'>
-          <Button>1</Button>
-          <Button>2</Button>
-          <Button>3</Button>
-          <Button>+</Button>
+        <Input input={input}/>
+        <div className='row'>
+          <Button handleClic={agregarInput}>1</Button>
+          <Button handleClic={agregarInput}>2</Button>
+          <Button handleClic={agregarInput}>3</Button>
+          <Button handleClic={agregarInput}>+</Button>
         </div>
-        <div className='fila'>
-          <Button>4</Button>
-          <Button>5</Button>
-          <Button>6</Button>
-          <Button>-</Button>
+        <div className='row'>
+          <Button handleClic={agregarInput}>4</Button>
+          <Button handleClic={agregarInput}>5</Button>
+          <Button handleClic={agregarInput}>6</Button>
+          <Button handleClic={agregarInput}>-</Button>
         </div>
-        <div className='fila'>
-          <Button>7</Button>
-          <Button>8</Button>
-          <Button>9</Button>
-          <Button>*</Button>
+        <div className='row'>
+          <Button handleClic={agregarInput}>7</Button>
+          <Button handleClic={agregarInput}>8</Button>
+          <Button handleClic={agregarInput}>9</Button>
+          <Button handleClic={agregarInput}>*</Button>
         </div>
-        <div className='fila'>
-          <Button>=</Button>
-          <Button>0</Button>
-          <Button>.</Button>
-          <Button>/</Button>
+        <div className='row'>
+          <Button handleClic={calculateResult}>=</Button>
+          <Button handleClic={agregarInput}>0</Button>
+          <Button handleClic={agregarInput}>.</Button>
+          <Button handleClic={agregarInput}>/</Button>
         </div>
-        <div className='fila'>
-          <ButtonClear>Clear</ButtonClear>
+        <div className='row'>
+          <ButtonClear handleClear={() => setInput('')}>
+            Clear
+          </ButtonClear>
         </div>
       </div>
     </div>
@@ -45,5 +63,3 @@ function App() {
 }
 
 export default App;
-
-
